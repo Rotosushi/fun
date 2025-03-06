@@ -8,23 +8,16 @@
 // work.  If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 /**
- * @file main.cpp
- * @brief defines the entry point for the program.
+ * @file config.hpp
+ * @brief Configuration file for the project.
  */
 
-#include <iostream>
+#pragma once
 
-#include "llvm/Support/InitLLVM.h"
+#include <string_view>
 
-#include "IR/scalar.hpp"
-#include "config/config.hpp"
+namespace fun::config {
 
-int main(int argc, char **argv) {
-  llvm::InitLLVM llvm{argc, argv};
+constexpr std::string_view version{"fun version (0.0.0) built at (2025-03-05 23:47:37) git revision (b0f8c0a)"};
 
-  std::cout << fun::config::version << std::endl;
-
-  fun::IR::Scalar scalar{0.0};
-
-  return 0;
-}
+} // namespace fun::config

@@ -1,33 +1,28 @@
 {
-    "version": 10,
-    "cmakeMinimumRequired": {
-        "major": 3,
-        "minor": 19,
-        "patch": 0
-    },
+    "version": 8,
     "configurePresets": [
         {
-            "name": "release",
-            "hidden": false,
-            "description": "Default configuration",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/build/release",
+            "name": "clang",
+            "displayName": "clang",
+            "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+            "binaryDir": "${sourceDir}/build/",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/release"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/",
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
-            "name": "debug",
-            "hidden": false,
-            "description": "Debug configuration",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/build/debug",
+            "name": "gcc",
+            "displayName": "gcc",
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "binaryDir": "${sourceDir}/build/",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/debug"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/",
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         }
     ]
