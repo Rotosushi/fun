@@ -1,0 +1,2 @@
+# fun
+A toy compiler
