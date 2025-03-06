@@ -1,0 +1,6 @@
+[submodule "llvm-project"]
+	path = deps/llvm-project
+	url = https://github.com/llvm/llvm-project
+[submodule "boost"]
+	path = deps/boost
+	url = https://github.com/boostorg/boost
