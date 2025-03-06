@@ -90,8 +90,8 @@ class Scalar {
     constexpr Scalar(f64 value) noexcept : data_{value} {}
 
     template <class T>
-    constexpr Scalar &operator=(T value) noexcept
-        requires std::is_assignable<Data &, T>::value
+    constexpr Scalar &operator=(T const &value) noexcept
+        requires std::is_assignable<Data &, T const &>::value
     {
         data_ = value;
         return *this;
@@ -150,6 +150,7 @@ class Scalar {
         return std::get<T>(data_);
     }
 
+    friend class Value;
     friend std::ostream &operator<<(std::ostream &out, const Scalar &scalar);
 };
 

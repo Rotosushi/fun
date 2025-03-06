@@ -12,3 +12,4 @@
 #include <boost/test/unit_test.hpp>
 
 #include "IR/scalar_tests.hpp"
+#include "IR/value_tests.hpp"

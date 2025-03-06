@@ -6,6 +6,7 @@
 # 
 # You should have received a copy of the CC0 legalcode along with this
 # work.  If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+cmake_minimum_required(VERSION 3.5...3.16)
 
 add_executable(fun_tests
     test_main.cpp 

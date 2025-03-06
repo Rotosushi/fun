@@ -8,16 +8,26 @@
 // work.  If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 /**
- * @file config.hpp
- * @brief Configuration file for the project.
+ * @file operand.hpp
+ * @brief Defines [Operand](@ref Operand)
  */
 
 #pragma once
 
-#include <string_view>
+#include "IR/scalar.hpp"
 
-namespace fun::config {
+namespace fun::IR {
 
-constexpr std::string_view version{"fun version (0.0.0) built at (2025-03-06 14:37:31) git revision (680ecdd)"};
+/**
+ * @class Operand
+ * @brief Represents an operand to an Instruction
+ */
+class Operand {
+  public:
+    using Label = Scalar::u32;
+    using Local = Scalar::u32;
 
-} // namespace fun::config
+  private:
+};
+
+} // namespace fun::IR
