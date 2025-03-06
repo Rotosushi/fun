@@ -26,7 +26,9 @@ project(FUN
 )
 
 find_package(LLVM REQUIRED CONFIG 20.1.0)
-find_package(Boost REQUIRED CONFIG)
+find_package(Boost REQUIRED CONFIG
+    COMPONENTS unit_test_framework
+)
 
 if (MSVC)
     set(FUN_WARNINGS /W4 /WX)
@@ -39,6 +41,8 @@ endif()
 set(FUN_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(FUN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
 
+set(FUN_TEST_DIR ${PROJECT_SOURCE_DIR}/test)
+
 set(FUN_COMPILE_FLAGS ${FUN_WARNINGS})
 
 set(FUN_INCLUDES 
@@ -48,3 +52,4 @@ set(FUN_INCLUDES
 )
 
 add_subdirectory(${FUN_SOURCE_DIR})
+add_subdirectory(${FUN_TEST_DIR})

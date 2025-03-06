@@ -7,17 +7,8 @@
 // You should have received a copy of the CC0 legalcode along with this
 // work.  If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
-/**
- * @file config.hpp
- * @brief Configuration file for the project.
- */
+#define BOOST_TEST_MODULE test_main
+#define BOOST_TEST_DYN_LINK
+#include <boost/test/unit_test.hpp>
 
-#pragma once
-
-#include <string_view>
-
-namespace fun::config {
-
-constexpr std::string_view version{"fun version (0.0.0) built at (2025-03-06 12:21:14) git revision (edeab54)"};
-
-} // namespace fun::config
+#include "IR/scalar_tests.hpp"
