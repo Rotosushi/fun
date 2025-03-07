@@ -11,5 +11,8 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
+#include "IR/block_tests.hpp"
+#include "IR/instruction_tests.hpp"
+#include "IR/operand_tests.hpp"
 #include "IR/scalar_tests.hpp"
 #include "IR/value_tests.hpp"

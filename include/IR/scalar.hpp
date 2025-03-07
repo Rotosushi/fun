@@ -55,7 +55,7 @@ bool epsilon_equality(T const &X, T const &Y)
  * @note Composite types are not Scalar
  */
 class Scalar {
-  public:
+public:
     using Nil  = std::monostate;
     using Bool = bool;
     using u8   = std::uint8_t;
@@ -69,14 +69,15 @@ class Scalar {
     using f32  = float;
     using f64  = double;
 
-  private:
+private:
     using Data =
         std::variant<Nil, Bool, u8, u16, u32, u64, i8, i16, i32, i64, f32, f64>;
 
     Data data_;
 
-  public:
+public:
     constexpr Scalar() noexcept : data_{Nil{}} {}
+    constexpr Scalar(Nil) noexcept : data_{Nil{}} {}
     constexpr Scalar(Bool value) noexcept : data_{value} {}
     constexpr Scalar(u8 value) noexcept : data_{value} {}
     constexpr Scalar(u16 value) noexcept : data_{value} {}
@@ -151,10 +152,11 @@ class Scalar {
     }
 
     friend class Value;
-    friend std::ostream &operator<<(std::ostream &out, const Scalar &scalar);
+    friend class Operand;
+    friend std::ostream &operator<<(std::ostream &out, Scalar const &scalar);
 };
 
-inline std::ostream &operator<<(std::ostream &out, const Scalar &scalar) {
+inline std::ostream &operator<<(std::ostream &out, Scalar const &scalar) {
     switch (scalar.data_.index()) {
     case 0:  out << "nil"; break;
     case 1:  out << (scalar.as<Scalar::Bool>() ? "true" : "false"); break;

@@ -26,7 +26,7 @@ namespace fun::IR {
  * @todo reference, slice, array, tuple, struct, union, lambda, vector, matrix
  */
 class Value {
-  private:
+private:
     using Data = std::variant<Scalar::Nil,
                               Scalar::Bool,
                               Scalar::u8,
@@ -41,8 +41,9 @@ class Value {
                               Scalar::f64>;
     Data data_;
 
-  public:
+public:
     constexpr Value() noexcept : data_{Scalar::Nil{}} {}
+    constexpr Value(Scalar::Nil) noexcept : data_{Scalar::Nil{}} {}
     constexpr Value(Scalar::Bool value) noexcept : data_{value} {}
     constexpr Value(Scalar::u8 value) noexcept : data_{value} {}
     constexpr Value(Scalar::u16 value) noexcept : data_{value} {}
@@ -54,6 +55,23 @@ class Value {
     constexpr Value(Scalar::i64 value) noexcept : data_{value} {}
     constexpr Value(Scalar::f32 value) noexcept : data_{value} {}
     constexpr Value(Scalar::f64 value) noexcept : data_{value} {}
+    constexpr Value(Scalar scalar) noexcept {
+        switch (scalar.data_.index()) {
+        case 0:  data_ = Scalar::Nil{}; break;
+        case 1:  data_ = scalar.as<Scalar::Bool>(); break;
+        case 2:  data_ = scalar.as<Scalar::u8>(); break;
+        case 3:  data_ = scalar.as<Scalar::u16>(); break;
+        case 4:  data_ = scalar.as<Scalar::u32>(); break;
+        case 5:  data_ = scalar.as<Scalar::u64>(); break;
+        case 6:  data_ = scalar.as<Scalar::i8>(); break;
+        case 7:  data_ = scalar.as<Scalar::i16>(); break;
+        case 8:  data_ = scalar.as<Scalar::i32>(); break;
+        case 9:  data_ = scalar.as<Scalar::i64>(); break;
+        case 10: data_ = scalar.as<Scalar::f32>(); break;
+        case 11: data_ = scalar.as<Scalar::f64>(); break;
+        default: std::unreachable();
+        }
+    }
 
     template <class T>
     constexpr Value &operator=(T const &value) noexcept
@@ -135,7 +153,7 @@ class Value {
         return std::get<T>(data_);
     }
 
-    friend std::ostream &operator<<(std::ostream &out, const Value &value);
+    friend std::ostream &operator<<(std::ostream &out, Value const &value);
 };
 
 template <> inline constexpr bool Value::is<Scalar>() const noexcept {
@@ -175,7 +193,7 @@ template <> inline constexpr Scalar Value::as<Scalar>() const noexcept {
     }
 }
 
-inline std::ostream &operator<<(std::ostream &out, const Value &value) {
+inline std::ostream &operator<<(std::ostream &out, Value const &value) {
     switch (value.data_.index()) {
     case 0:  out << "nil"; break;
     case 1:  out << (value.as<Scalar::Bool>() ? "true" : "false"); break;

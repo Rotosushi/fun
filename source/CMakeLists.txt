@@ -37,7 +37,8 @@ configure_file(
 )
 
 add_executable(fun 
-    ${FUN_SOURCE_DIR}/main.cpp
+
+  ${FUN_SOURCE_DIR}/main.cpp
 )
 target_compile_options(fun PRIVATE ${FUN_COMPILE_FLAGS})
 target_include_directories(fun PRIVATE ${FUN_INCLUDES})

@@ -18,6 +18,6 @@
 
 namespace fun::config {
 
-constexpr std::string_view version{"fun version (0.0.0) built at (2025-03-06 14:37:31) git revision (680ecdd)"};
+constexpr std::string_view version{"fun version (0.0.0) built at (2025-03-06 16:04:35) git revision (0655795)"};
 
 } // namespace fun::config
