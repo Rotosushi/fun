@@ -137,6 +137,8 @@ public:
         }
     }
 
+    constexpr u64 index() const noexcept { return data_.index(); }
+
     template <class T> constexpr bool is() const noexcept {
         return std::holds_alternative<T>(data_);
     }
@@ -150,14 +152,10 @@ public:
         assert(is<T>());
         return std::get<T>(data_);
     }
-
-    friend class Value;
-    friend class Operand;
-    friend std::ostream &operator<<(std::ostream &out, Scalar const &scalar);
 };
 
 inline std::ostream &operator<<(std::ostream &out, Scalar const &scalar) {
-    switch (scalar.data_.index()) {
+    switch (scalar.index()) {
     case 0:  out << "nil"; break;
     case 1:  out << (scalar.as<Scalar::Bool>() ? "true" : "false"); break;
     case 2:  out << scalar.as<Scalar::u8>(); break;

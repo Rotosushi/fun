@@ -56,7 +56,7 @@ public:
     constexpr Value(Scalar::f32 value) noexcept : data_{value} {}
     constexpr Value(Scalar::f64 value) noexcept : data_{value} {}
     constexpr Value(Scalar scalar) noexcept {
-        switch (scalar.data_.index()) {
+        switch (scalar.index()) {
         case 0:  data_ = Scalar::Nil{}; break;
         case 1:  data_ = scalar.as<Scalar::Bool>(); break;
         case 2:  data_ = scalar.as<Scalar::u8>(); break;
@@ -82,7 +82,7 @@ public:
     }
 
     constexpr Value &operator=(Scalar const &scalar) noexcept {
-        switch (scalar.data_.index()) {
+        switch (scalar.index()) {
         case 0:  data_ = Scalar::Nil{}; break;
         case 1:  data_ = scalar.as<Scalar::Bool>(); break;
         case 2:  data_ = scalar.as<Scalar::u8>(); break;

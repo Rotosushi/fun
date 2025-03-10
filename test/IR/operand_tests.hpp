@@ -332,23 +332,23 @@ BOOST_AUTO_TEST_CASE(operand_f64) {
 }
 
 BOOST_AUTO_TEST_CASE(operand_label) {
-    fun::IR::Operand A{fun::IR::Label{0}};
-    BOOST_TEST(A.is<fun::IR::Label>());
-    BOOST_TEST(A.as<fun::IR::Label>().index == 0);
+    fun::IR::Operand A{fun::IR::LabelHandle{0}};
+    BOOST_TEST(A.is<fun::IR::LabelHandle>());
+    BOOST_TEST(A.as<fun::IR::LabelHandle>().index == 0);
     BOOST_TEST(!A.is<fun::IR::Scalar::f64>());
 
     A = fun::IR::Scalar{1};
     BOOST_TEST(A.is<fun::IR::Scalar::i32>());
     BOOST_TEST(A.as<fun::IR::Scalar::i32>() == 1);
-    BOOST_TEST(!A.is<fun::IR::Label>());
+    BOOST_TEST(!A.is<fun::IR::LabelHandle>());
 
-    A = fun::IR::Label{0};
-    BOOST_TEST(A.is<fun::IR::Label>());
-    BOOST_TEST(A.as<fun::IR::Label>().index == 0);
+    A = fun::IR::LabelHandle{0};
+    BOOST_TEST(A.is<fun::IR::LabelHandle>());
+    BOOST_TEST(A.as<fun::IR::LabelHandle>().index == 0);
     BOOST_TEST(!A.is<fun::IR::Scalar::f64>());
 
-    fun::IR::Operand B{fun::IR::Label{1}};
-    BOOST_REQUIRE(A.is<fun::IR::Label>() && B.is<fun::IR::Label>());
+    fun::IR::Operand B{fun::IR::LabelHandle{1}};
+    BOOST_REQUIRE(A.is<fun::IR::LabelHandle>() && B.is<fun::IR::LabelHandle>());
     BOOST_TEST(A != B);
     BOOST_TEST(A < B);
     BOOST_TEST(A <= B);
@@ -358,23 +358,23 @@ BOOST_AUTO_TEST_CASE(operand_label) {
 }
 
 BOOST_AUTO_TEST_CASE(operand_local) {
-    fun::IR::Operand A{fun::IR::Local{0}};
-    BOOST_TEST(A.is<fun::IR::Local>());
-    BOOST_TEST(A.as<fun::IR::Local>().index == 0);
+    fun::IR::Operand A{fun::IR::LocalHandle{0}};
+    BOOST_TEST(A.is<fun::IR::LocalHandle>());
+    BOOST_TEST(A.as<fun::IR::LocalHandle>().index == 0);
     BOOST_TEST(!A.is<fun::IR::Scalar::f64>());
 
     A = fun::IR::Scalar{1};
     BOOST_TEST(A.is<fun::IR::Scalar::i32>());
     BOOST_TEST(A.as<fun::IR::Scalar::i32>() == 1);
-    BOOST_TEST(!A.is<fun::IR::Local>());
+    BOOST_TEST(!A.is<fun::IR::LocalHandle>());
 
-    A = fun::IR::Local{0};
-    BOOST_TEST(A.is<fun::IR::Local>());
-    BOOST_TEST(A.as<fun::IR::Local>().index == 0);
+    A = fun::IR::LocalHandle{0};
+    BOOST_TEST(A.is<fun::IR::LocalHandle>());
+    BOOST_TEST(A.as<fun::IR::LocalHandle>().index == 0);
     BOOST_TEST(!A.is<fun::IR::Scalar::f64>());
 
-    fun::IR::Operand B{fun::IR::Local{1}};
-    BOOST_REQUIRE(A.is<fun::IR::Local>() && B.is<fun::IR::Local>());
+    fun::IR::Operand B{fun::IR::LocalHandle{1}};
+    BOOST_REQUIRE(A.is<fun::IR::LocalHandle>() && B.is<fun::IR::LocalHandle>());
     BOOST_TEST(A != B);
     BOOST_TEST(A < B);
     BOOST_TEST(A <= B);

@@ -14,49 +14,19 @@
 
 #pragma once
 
+#include <string_view>
+
+#include "IR/local.hpp"
 #include "IR/scalar.hpp"
 
 namespace fun::IR {
-
-/**
- * @struct Label
- * @brief Represents a handle to a label
- */
-struct Label {
-    Scalar::u64 index;
-
-    constexpr bool operator==(Label const &other) const noexcept {
-        return index == other.index;
-    }
-
-    constexpr std::partial_ordering
-    operator<=>(Label const &other) const noexcept {
-        return index <=> other.index;
-    }
-};
-
-/**
- * @struct Local
- * @brief Represents a handle to a local variable
- */
-struct Local {
-    Scalar::u64 index;
-
-    constexpr bool operator==(Local const &other) const noexcept {
-        return index == other.index;
-    }
-
-    constexpr std::partial_ordering
-    operator<=>(Local const &other) const noexcept {
-        return index <=> other.index;
-    }
-};
 
 /**
  * @class Operand
  * @brief Represents an operand to an Instruction
  */
 class Operand {
+
 private:
     using Data = std::variant<Scalar::Nil,
                               Scalar::Bool,
@@ -71,7 +41,7 @@ private:
                               Scalar::f32,
                               Scalar::f64,
                               Label,
-                              Local>;
+                              LocalHandle>;
     Data data_;
 
 public:
@@ -89,7 +59,7 @@ public:
     constexpr Operand(Scalar::f32 value) noexcept : data_{value} {}
     constexpr Operand(Scalar::f64 value) noexcept : data_{value} {}
     constexpr Operand(Scalar scalar) noexcept {
-        switch (scalar.data_.index()) {
+        switch (scalar.index()) {
         case 0:  data_ = Scalar::Nil{}; break;
         case 1:  data_ = scalar.as<Scalar::Bool>(); break;
         case 2:  data_ = scalar.as<Scalar::u8>(); break;
@@ -106,7 +76,7 @@ public:
         }
     }
     constexpr Operand(Label value) noexcept : data_{value} {}
-    constexpr Operand(Local value) noexcept : data_{value} {}
+    constexpr Operand(LocalHandle value) noexcept : data_{value} {}
 
     template <class T>
     constexpr Operand &operator=(T const &value) noexcept
@@ -117,7 +87,7 @@ public:
     }
 
     constexpr Operand &operator=(Scalar const &scalar) noexcept {
-        switch (scalar.data_.index()) {
+        switch (scalar.index()) {
         case 0:  data_ = Scalar::Nil{}; break;
         case 1:  data_ = scalar.as<Scalar::Bool>(); break;
         case 2:  data_ = scalar.as<Scalar::u8>(); break;
@@ -152,7 +122,7 @@ public:
         case 10: return as<Scalar::f32>() <=> other.as<Scalar::f32>();
         case 11: return as<Scalar::f64>() <=> other.as<Scalar::f64>();
         case 12: return as<Label>() <=> other.as<Label>();
-        case 13: return as<Local>() <=> other.as<Local>();
+        case 13: return as<LocalHandle>() <=> other.as<LocalHandle>();
         default: std::unreachable();
         }
     }
@@ -173,7 +143,7 @@ public:
         case 10: return as<Scalar::f32>() == other.as<Scalar::f32>();
         case 11: return as<Scalar::f64>() == other.as<Scalar::f64>();
         case 12: return as<Label>() == other.as<Label>();
-        case 13: return as<Local>() == other.as<Local>();
+        case 13: return as<LocalHandle>() == other.as<LocalHandle>();
         default: std::unreachable();
         }
     }
@@ -246,8 +216,8 @@ inline std::ostream &operator<<(std::ostream &out, Operand const &operand) {
     case 9:  return out << operand.as<Scalar::i64>();
     case 10: return out << operand.as<Scalar::f32>();
     case 11: return out << operand.as<Scalar::f64>();
-    case 12: return out << "@" << operand.as<Label>().index;
-    case 13: return out << "%" << operand.as<Local>().index;
+    case 12: return out << "@" << operand.as<Label>().name;
+    case 13: return out << "%" << operand.as<LocalHandle>().index;
     default: std::unreachable();
     }
 }

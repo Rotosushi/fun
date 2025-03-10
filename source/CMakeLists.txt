@@ -37,6 +37,7 @@ configure_file(
 )
 
 add_executable(fun 
+  ${FUN_SOURCE_DIR}/codegen/to_llvm.cpp
 
   ${FUN_SOURCE_DIR}/main.cpp
 )

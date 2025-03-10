@@ -8,16 +8,22 @@
 // work.  If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 /**
- * @file config.hpp
- * @brief Configuration file for the project.
+ * @file parse.hpp
+ * @brief Declares [parse](@ref parse)
  */
 
 #pragma once
 
+#include <filesystem>
 #include <string_view>
 
-namespace fun::config {
+#include "env/context.hpp"
 
-constexpr std::string_view version{"fun version (0.0.0) built at (2025-03-10 10:48:57) git revision (c052564)"};
+namespace fs = std::filesystem;
 
-} // namespace fun::config
+namespace fun::scan {
+
+bool parse(std::string_view view, env::Context &ctx);
+bool parse(fs::path path, env::Context &ctx);
+
+} // namespace fun::scan
